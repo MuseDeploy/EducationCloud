@@ -1,0 +1,13 @@
+{
+    "orgName": "MuseDeploy Demo for Education Cloud",
+    "edition": "Enterprise",
+    "features": ["DevelopmentWave"],
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "chatterSettings": {
+            "enableChatter": true
+        }
+    }
+}

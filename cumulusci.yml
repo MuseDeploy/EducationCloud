@@ -1,0 +1,52 @@
+minimum_cumulusci_version: '3.64.0'
+project:
+    name: EducationCloud
+    package:
+        name: MuseDeploy Education Cloud Demo
+        api_version: '55.0'
+    dependencies:
+        - github: 'https://github.com/SalesforceFoundation/EDA'
+    git:
+        default_branch: 'main'
+    source_format: sfdx
+
+sources:
+    eda:
+        github: 'https://github.com/SalesforceFoundation/EDA'
+tasks:
+    robot:
+        options:
+            suites: robot/EducationCloud/tests
+            options:
+                outputdir: robot/EducationCloud/results
+
+    robot_testdoc:
+        options:
+            path: robot/EducationCloud/tests
+            output: robot/EducationCloud/doc/EducationCloud_tests.html
+
+    run_tests:
+        options:
+            required_org_code_coverage_percent: 75
+
+orgs:
+    scratch:
+        dev:
+            config_file: orgs/release.json
+        feature:
+            config_file: orgs/release.json
+        beta:
+            config_file: orgs/release.json
+
+plans:
+    install:
+        slug: install
+        title: Install
+        tier: primary
+        checks:
+            - when: "not tasks.check_my_domain_active()"
+              action: error
+              message: "Please enable My Domain in your org prior to installing."
+        steps:
+            1:
+                flow: eda:customer_org
